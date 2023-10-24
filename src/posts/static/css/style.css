@@ -1,0 +1,81 @@
+@import "reset.css";
+
+body {
+    background: rgba(240,240,240,0.5);
+}
+
+nav {
+    margin: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+h5 {
+    font-size: 0.8rem;
+}
+
+#blog {
+    margin: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+input[type=text],
+textarea {
+    display: flex;
+    flex-direction: column;
+}
+
+#blog article {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.title-article {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+#blog form {
+    margin-top: 1rem;
+    align-items: center;
+}
+
+@media (max-width: 1024px) {
+    #blog article {
+        width: 80%;
+    }
+
+    #blog {
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #blog article {
+        width: 100%;
+    }
+}
