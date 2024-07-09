@@ -1,11 +1,20 @@
-{% extends "base.html" %}
+{% extends "posts/base.html" %}
 
 {% block title %}
-    <title>{{ post.title }}</title>
+    {{ post.title }}
 {% endblock %}
 
 {% block content %}
-    <article>
+    {% if request.user.is_authenticated %}
+    <div id="view-action">
+        <a href="{% url 'posts:edit' post.slug %}" class="edit_article">Éditer</a>
+        <a href="{% url 'posts:delete' post.slug %}" class="delete_article">Supprimer</a>
+        {% if not post.published %}
+            <span>Non Publié</span>
+        {% endif %} 
+    </div>
+    {% endif %}
+    <article id="view-article">
         <h1>{{ post.title }}</h1>
         <div>{{ post.content|linebreaks|safe }}</div>
     </article>

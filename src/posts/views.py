@@ -37,6 +37,7 @@ def blog_post_create(request):
 def blog_post_edit(request, slug):
     post = get_object_or_404(BlogPost, slug=slug)
     context: dict = {}
+    context["post_title"] = post.title
     if request.method == "POST":
         form: BlogPostForm = BlogPostForm(request.POST, instance=post)
         if form.is_valid():

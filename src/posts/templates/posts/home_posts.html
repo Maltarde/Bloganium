@@ -1,27 +1,28 @@
-{% extends "base.html" %}
+{% extends "posts/base.html" %}
 
 {% block title %}
-    <title>Accueil</title>
+    Accueil
 {% endblock %}
 
 {% block content %}
-    <h1>Bloganium</h1>
     {% for post in posts %}
         <article>
-            <div class="title-article">
-                <h2>{{ post.title }}</h2>
-                {% if request.user.is_authenticated %}
-                    <div>
-                        <a href="{% url 'posts:edit' post.slug %}">Editer</a>
-                        <a href="{% url 'posts:delete' post.slug %}">Supprimer</a>
-                    </div>
-                {% endif %}
-            </div>
-            <h5>Publié par <i>{{ post.author_or_default }}</i> le {{ post.last_updated|date:"j F Y" }}</h5>
-            <p>{{ post.content|safe|truncatewords:50 }}</p>
-            <form action="{% url 'posts:view' post.slug %}">
-                <button>Lire l'article</button>
-            </form>
+            <a href="{% url 'posts:view' post.slug %}">
+                <div>
+                    <h2>{{ post.title }}</h2>
+                    <h5>Publié par <i>{{ post.author_or_default }}</i> le {{ post.last_updated|date:"j F Y" }}</h5>
+                </div>
+                <p>{{ post.content|safe|truncatewords:75 }}</p>
+            </a>
+            {% if request.user.is_authenticated %}
+                <div>
+                    <a href="{% url 'posts:edit' post.slug %}" class="edit_article">Éditer</a>
+                    <a href="{% url 'posts:delete' post.slug %}" class="delete_article">Supprimer</a>
+                    {% if not post.published %}
+                        <span>Non Publié</span>
+                    {% endif %} 
+                </div>
+            {% endif %}
         </article>
     {% endfor %}
 {% endblock %}

@@ -1,13 +1,13 @@
-{% extends "base.html" %}
+{% extends "posts/base.html" %}
 
 {% block title %}
-    <title>Editer l'article</title>
+    Éditer {{ post_title }}
 {% endblock %}
 
 {% block content %}
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Editer">
+        {{ form }}
+        <input type="submit" value="Éditer" class="button">
     </form>
 {% endblock %}
