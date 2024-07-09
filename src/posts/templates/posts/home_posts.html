@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    {% for post in posts %}
+    {% for post in page_obj %}
         <article>
             <a href="{% url 'posts:view' post.slug %}">
                 <div>
@@ -25,4 +25,23 @@
             {% endif %}
         </article>
     {% endfor %}
+    {% if page_obj.paginator.num_pages > 1 %}
+        <div class="pagination">
+            <span>
+                {% if page_obj.has_previous %}
+                    <a class="btn" href="?page=1">&Lang;</a>
+                    <a class="btn" href="?page={{ page_obj.previous_page_number }}">&lang;</a>
+                {% endif %}
+            </span>
+            <span class="current">
+                {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+            </span>
+            <span>
+                {% if page_obj.has_next %}
+                    <a class="btn" href="?page={{ page_obj.next_page_number }}">&rang;</a>
+                    <a class="btn" href="?page={{ page_obj.paginator.num_pages }}">&Rang;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
 {% endblock %}

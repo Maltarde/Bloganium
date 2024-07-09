@@ -1,16 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
 from posts.forms import BlogPostForm
 from posts.models import BlogPost
 
 
 def blog_home(request):
     if request.user.is_authenticated:
-        context: dict = {"posts": BlogPost.objects.all()}
+        posts = BlogPost.objects.all()
     else:
-        context: dict = {"posts": BlogPost.objects.filter(published=True)}
+        posts = BlogPost.objects.filter(published=True)
 
-    return render(request, "posts/home_posts.html", context=context)
+    paginator = Paginator(posts, 8)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "posts/home_posts.html", context={"page_obj": page_obj})
 
 
 def blog_post_view(request, slug):
