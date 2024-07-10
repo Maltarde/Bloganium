@@ -1,12 +1,32 @@
 @import "reset.css";
 
+[data-theme="light"] {
+    --bg: #F7F7F7;
+    --font: #3c4043;
+    --submit: #E4ECFA;
+    --submit-hover: #D6DDEA;
+    --delete-a: #FF0000;
+    --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+[data-theme="dark"] {
+    --bg: #202124;
+    --font: #dadce0;
+    --submit: #3C4043;
+    --submit-hover: #4B4F52;
+    --delete-a: #DD0000;
+    --box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
+}
+
 body {
-    background: rgba(240,240,240,0.5);
+    /*background: rgba(240,240,240);*/
+    background: var(--bg);
     min-width: 300px;
 }
 
 #contain { 
     max-width: 1000px;
+    color: var(--font);
     margin: auto;
 }
 
@@ -23,8 +43,29 @@ nav {
 }
 
 nav a {
-    color: black;
+    color: var(--font);
     font-size: 1.2em;
+}
+
+
+nav > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px
+}
+
+nav button {
+    padding: 10px 15px;
+    border-radius: 40px;
+    cursor: pointer;
+    background: var(--submit);
+    border: solid 1px var(--submit-border);
+    color: var(--submit-font);
+}
+
+nav button:hover {
+    background: var(--submit-hover);
 }
 
 h1 {
@@ -80,7 +121,7 @@ textarea {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    color: black;
+    color: var(--font);
     text-decoration-line: none;
     width: 100%;
 }
@@ -92,7 +133,7 @@ textarea {
 }
 
 #blog article > a:hover {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: var(--box-shadow);
 }
 
 #blog article p {
@@ -106,7 +147,7 @@ textarea {
 }
 
 #blog .delete_article {
-    color: red;
+    color: var(--delete-a);
     text-decoration-line: underline;
 }
 
@@ -174,7 +215,7 @@ input[type=submit] {
 }
 
 #view-action a {
-    color: black;
+    color: var(--font);
 }
 
 .pagination {
@@ -187,14 +228,14 @@ input[type=submit] {
 }
 
 .pagination a {
-    color: black;
+    color: var(--font);
     margin: 0 10px;
     padding: 10px;
     border-radius: 5px;
 }
 
 .pagination a:hover {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: var(--box-shadow);
 }
 
 @media (max-width: 1024px) {
