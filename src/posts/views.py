@@ -8,9 +8,9 @@ from posts.models import BlogPost
 
 def blog_home(request):
     if request.user.is_authenticated:
-        posts = BlogPost.objects.all()
+        posts = BlogPost.objects.all().order_by("-last_updated")
     else:
-        posts = BlogPost.objects.filter(published=True)
+        posts = BlogPost.objects.filter(published=True).order_by("-last_updated")
 
     paginator = Paginator(posts, 8)
     page_number = request.GET.get("page")
