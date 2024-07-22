@@ -1,10 +1,19 @@
 {% extends "posts/base.html" %}
+{% load static %}
 
 {% block title %}
     Accueil
 {% endblock %}
 
 {% block content %}
+    <form method="post" action="{% url 'posts:search_redirect' %}" id="search">
+        {% csrf_token %}
+        {{search.search}}
+        <button>
+            <img v-if="mod" src="{% static 'image/search.svg' %}">
+            <img v-else src="{% static 'image/search-light.svg' %}">
+        </button>
+    </form>
     {% for post in page_obj %}
         <article>
             <a href="{% url 'posts:view' post.slug %}">

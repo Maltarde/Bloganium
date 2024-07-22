@@ -1,22 +1,39 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
+from django.urls import NoReverseMatch
 
-from posts.forms import BlogPostForm
+from posts.forms import BlogPostForm, SearchForm
 from posts.models import BlogPost
+from posts.utils import get_paginated_posts
 
 
 def blog_home(request):
-    if request.user.is_authenticated:
-        posts = BlogPost.objects.all().order_by("-last_updated")
-    else:
-        posts = BlogPost.objects.filter(published=True).order_by("-last_updated")
+    context = {
+        "search": SearchForm(),
+        "page_obj": get_paginated_posts(request)
+    }
+    return render(request, "posts/home_posts.html", context=context)
 
-    paginator = Paginator(posts, 8)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
 
-    return render(request, "posts/home_posts.html", context={"page_obj": page_obj})
+def blog_post_search(request, search):
+    context = {
+        "search": SearchForm(),
+        "page_obj": get_paginated_posts(request, search)
+    }
+    return render(request, "posts/home_posts.html", context=context)
+
+
+def blog_post_search_redirect(request):
+    if "search" in request.POST:
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data["search"]
+            try:
+                return redirect("posts:search", search=data)
+            except NoReverseMatch:
+                pass
+    
+    return redirect("posts:home")
 
 
 def blog_post_view(request, slug):

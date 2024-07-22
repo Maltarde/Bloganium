@@ -1,12 +1,14 @@
 @import "reset.css";
 
 [data-theme="light"] {
-    --bg: #F7F7F7;
+    --bg: #FFFFFF;
     --font: #3c4043;
     --submit: #E4ECFA;
     --submit-hover: #D6DDEA;
     --delete-a: #FF0000;
     --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    --search: #ECF1FD;
+    --search-font: #202021;
 }
 
 [data-theme="dark"] {
@@ -16,6 +18,8 @@
     --submit-hover: #4B4F52;
     --delete-a: #DD0000;
     --box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
+    --search: #262a33;
+    --search-font: #e0e2e5;
 }
 
 body {
@@ -236,6 +240,35 @@ input[type=submit] {
 
 .pagination a:hover {
     box-shadow: var(--box-shadow);
+}
+
+
+#search {
+    display: flex;
+    flex-direction: row;
+}
+
+#id_search {
+    padding: 15px;
+    width: 100%;
+    border-radius: 40px;
+    border: none;
+    font-size: 1.1em;
+    background: var(--search);
+    color: var(--search-font)
+}
+
+button {
+    padding: 10px 15px;
+    border-radius: 40px;
+    cursor: pointer;
+    background: var(--submit);
+    border: solid 1px var(--submit-border);
+    color: var(--submit-font);
+}
+
+button:hover {
+    background: var(--submit-hover);
 }
 
 @media (max-width: 1024px) {
